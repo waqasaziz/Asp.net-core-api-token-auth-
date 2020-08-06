@@ -9,7 +9,7 @@ namespace Domain.Data
     public class Database : DbContext
     {
         public Database(DbContextOptions<Database> options) : base(options) { }
-        public DbSet<Merchant> Users { get; set; }
+        public DbSet<Merchant> Merchants { get; set; }
         public DbSet<Payment> Payments { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

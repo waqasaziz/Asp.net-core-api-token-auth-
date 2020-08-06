@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Entities
 {
-    using Helpers;
     public class Merchant
     {
         public int Id { get; set; }
@@ -18,9 +17,9 @@ namespace Domain.Entities
         public string Password { get; set; }
 
         [JsonIgnore]
-        public List<RefreshToken> RefreshTokens { get; } = new List<RefreshToken>();
+        public ICollection<RefreshToken> RefreshTokens { get; } = new List<RefreshToken>();
 
         [JsonIgnore]
-        public List<Payment> Payments { get; } = new List<Payment>();
+        public ICollection<Payment> Payments { get; } = new List<Payment>();
     }
 }

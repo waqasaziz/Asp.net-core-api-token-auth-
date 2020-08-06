@@ -36,8 +36,6 @@ namespace Domain.Entities
                 o.Property(p => p.CreatedOn).IsRequired();
                 o.Property(p => p.CreatedByIP).IsRequired();
             });
-
-        
         }
     }
 }
