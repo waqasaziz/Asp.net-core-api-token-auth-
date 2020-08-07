@@ -215,7 +215,7 @@ namespace Tests.Repositories
             }
         }
 
-        private IMerchantRepository CreateMerchantRepository(Database context) => CreateMerchantRepository(context);
+        private IMerchantRepository CreateMerchantRepository(Database context) => new MerchantRepository(context);
 
     }
 
