@@ -27,7 +27,7 @@ namespace Tests.Repositories
             using (var context = TestsHelper.CreateInMemoryDbContext())
             {
                 //Act
-                var repository = new MerchantRepository(context);
+                var repository = CreateMerchantRepository(context);
                 await repository.Add(merchant);
 
                 //Assert
@@ -42,7 +42,7 @@ namespace Tests.Repositories
             {
                 //Arrange
                 var merchant = Merchant;
-                var repository = new MerchantRepository(context);
+                var repository = CreateMerchantRepository(context);
                 await repository.Add(merchant);
 
                 //Act
@@ -54,17 +54,17 @@ namespace Tests.Repositories
         }
 
         [Fact]
-        public async Task Can_Find_By_Credentials()
+        public async Task Can_Find_By_UserName()
         {
             using (var context = TestsHelper.CreateInMemoryDbContext())
             {
                 //Arrange
                 var merchant = Merchant;
-                var repository = new MerchantRepository(context);
+                var repository = CreateMerchantRepository(context);
                 await repository.Add(merchant);
 
                 //Act
-                var result = await repository.FindByCredentials(merchant.Username, merchant.Password);
+                var result = await repository.FindByUserName(merchant.Username);
 
                 //Assert
                 Assert.Equal(result, merchant);
@@ -78,7 +78,7 @@ namespace Tests.Repositories
             using (var context = TestsHelper.CreateInMemoryDbContext())
             {
                 //Arrange
-                var repository = new MerchantRepository(context);
+                var repository = CreateMerchantRepository(context);
                 await repository.Add(Merchant);
                 var merchant = await repository.GetById(Merchant.Id);
 
@@ -97,7 +97,7 @@ namespace Tests.Repositories
             using (var context = TestsHelper.CreateInMemoryDbContext())
             {
                 //Arrange
-                var repository = new MerchantRepository(context);
+                var repository = CreateMerchantRepository(context);
                 await repository.Add(Merchant);
                 var merchant = await repository.GetById(Merchant.Id);
 
@@ -119,7 +119,7 @@ namespace Tests.Repositories
                 merchant.RefreshTokens.Add(RefreshToken);
                 
                 //Act
-                var repository = new MerchantRepository(context);
+                var repository = CreateMerchantRepository(context);
                 await repository.Add(merchant);
                 var result = await repository.GetById(Merchant.Id);
 
@@ -139,7 +139,7 @@ namespace Tests.Repositories
                 merchant.RefreshTokens.Add(RefreshToken);
 
                 //Act
-                var repository = new MerchantRepository(context);
+                var repository = CreateMerchantRepository(context);
                 await repository.Add(merchant);
                 var result = await repository.FindByToken(RefreshToken.Token);
 
@@ -156,29 +156,11 @@ namespace Tests.Repositories
             {
                 //Arrange
                 var merchant = Merchant;
-                var repository = new MerchantRepository(context);
+                var repository = CreateMerchantRepository(context);
                 await repository.Add(merchant);
 
                 //Act
-                var result = await repository.FindByCredentials("ABC", merchant.Password);
-
-                //Assert
-                Assert.Null(result);
-            }
-        }
-
-        [Fact]
-        public async Task ShouldReturnNull_WithInvalidPassword()
-        {
-            using (var context = TestsHelper.CreateInMemoryDbContext())
-            {
-                //Arrange
-                var merchant = Merchant;
-                var repository = new MerchantRepository(context);
-                await repository.Add(merchant);
-
-                //Act
-                var result = await repository.FindByCredentials(merchant.Username, "ABC");
+                var result = await repository.FindByUserName("ABC");
 
                 //Assert
                 Assert.Null(result);
@@ -195,7 +177,7 @@ namespace Tests.Repositories
                 merchant.RefreshTokens.Add(RefreshToken);
 
                 //Act
-                var repository = new MerchantRepository(context);
+                var repository = CreateMerchantRepository(context);
                 await repository.Add(merchant);
                 var result = await repository.FindByToken("ABC");
 
@@ -214,7 +196,8 @@ namespace Tests.Repositories
                     Id = 1,
                     Name = "Amazon.co.uk",
                     Username = "Amazon",
-                    Password = "Test1234"
+                    PasswordSalt = "NZsP6NnmfBuYeJrrAKNuVQ==",
+                    PasswordHash = "/OOoOer10+tGwTRDTrQSoeCxVTFr6dtYly7d0cPxIak="
                 };
             }
         }
@@ -231,6 +214,8 @@ namespace Tests.Repositories
                 };
             }
         }
+
+        private IMerchantRepository CreateMerchantRepository(Database context) => CreateMerchantRepository(context);
 
     }
 

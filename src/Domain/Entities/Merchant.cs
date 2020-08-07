@@ -14,7 +14,10 @@ namespace Domain.Entities
         public string Username { get; set; }
 
         [JsonIgnore]
-        public string Password { get; set; }
+        public string PasswordHash { get; set; }
+        
+        [JsonIgnore]
+        public string PasswordSalt { get; set; }
 
         [JsonIgnore]
         public ICollection<RefreshToken> RefreshTokens { get; } = new List<RefreshToken>();

@@ -26,9 +26,13 @@ namespace Domain.Entities
             builder.Property(x => x.Username).IsRequired();
             builder.HasIndex(x => x.Username).IsUnique();
 
-            builder.Property(x => x.Password)
+            builder.Property(x => x.PasswordHash)
                 .IsRequired()
                 .HasMaxLength(ModelConstants.Merchant.PasswordMaxLength);
+
+            builder.Property(x => x.PasswordSalt)
+              .IsRequired()
+              .HasMaxLength(ModelConstants.Merchant.SaltMaxLength);
 
             builder.OwnsMany(x => x.RefreshTokens, o =>
             {
