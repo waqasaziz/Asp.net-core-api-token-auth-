@@ -11,8 +11,8 @@ namespace Domain.Helpers
     public interface IHashingProvider
     {
         string GenerateSalt();
-        string GenerateHash(string value, string salt);
-        bool Validate(string value, string salt, string hash);
+        string GenerateHash(string plainText, string salt);
+        bool Validate(string plainText, string salt, string hash);
     }
 
     public class HashingProvider : IHashingProvider
@@ -28,16 +28,16 @@ namespace Domain.Helpers
         {
             var salt = new byte[_options.SaltSize];
 
-            using (var rng = RandomNumberGenerator.Create())
-                rng.GetBytes(salt);
+            using (var rngCryptoServiceProvider = new RNGCryptoServiceProvider())
+                rngCryptoServiceProvider.GetBytes(salt);
 
             return Convert.ToBase64String(salt);
         }
 
-        public string GenerateHash(string value, string salt)
+        public string GenerateHash(string plainText, string salt)
         {
             var hash = KeyDerivation.Pbkdf2(
-                          password: value,
+                          password: plainText,
                           salt: Encoding.UTF8.GetBytes(salt),
                           prf: _options.Prf,
                           iterationCount: _options.Iterations,
@@ -46,7 +46,7 @@ namespace Domain.Helpers
             return Convert.ToBase64String(hash);
         }
 
-        public bool Validate(string value, string salt, string hash) => GenerateHash(value, salt) == hash;
+        public bool Validate(string plainText, string salt, string hash) => GenerateHash(plainText, salt) == hash;
     }
 
 
