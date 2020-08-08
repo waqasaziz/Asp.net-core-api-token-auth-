@@ -24,7 +24,7 @@ namespace Tests.Repositories
             //Arrange 
             var merchant = Merchant;
 
-            using (var context = TestsHelper.CreateInMemoryDbContext())
+            using (var context = TestHelper.CreateInMemoryDbContext())
             {
                 //Act
                 var repository = CreateMerchantRepository(context);
@@ -38,7 +38,7 @@ namespace Tests.Repositories
         [Fact]
         public async Task Can_Find_By_Id()
         {
-            using (var context = TestsHelper.CreateInMemoryDbContext())
+            using (var context = TestHelper.CreateInMemoryDbContext())
             {
                 //Arrange
                 var merchant = Merchant;
@@ -56,7 +56,7 @@ namespace Tests.Repositories
         [Fact]
         public async Task Can_Find_By_UserName()
         {
-            using (var context = TestsHelper.CreateInMemoryDbContext())
+            using (var context = TestHelper.CreateInMemoryDbContext())
             {
                 //Arrange
                 var merchant = Merchant;
@@ -75,7 +75,7 @@ namespace Tests.Repositories
         public async Task Can_Update()
         {
             var newMerchantName = "Ebay.co.uk";
-            using (var context = TestsHelper.CreateInMemoryDbContext())
+            using (var context = TestHelper.CreateInMemoryDbContext())
             {
                 //Arrange
                 var repository = CreateMerchantRepository(context);
@@ -94,7 +94,7 @@ namespace Tests.Repositories
         [Fact]
         public async Task Can_Delete()
         {
-            using (var context = TestsHelper.CreateInMemoryDbContext())
+            using (var context = TestHelper.CreateInMemoryDbContext())
             {
                 //Arrange
                 var repository = CreateMerchantRepository(context);
@@ -112,7 +112,7 @@ namespace Tests.Repositories
         [Fact]
         public async Task Can_Save_Refresh_Token()
         {
-            using (var context = TestsHelper.CreateInMemoryDbContext())
+            using (var context = TestHelper.CreateInMemoryDbContext())
             {
                 //Arrange 
                 var merchant = Merchant;
@@ -132,7 +132,7 @@ namespace Tests.Repositories
         [Fact]
         public async Task Can_Find_By_Token()
         {
-            using (var context = TestsHelper.CreateInMemoryDbContext())
+            using (var context = TestHelper.CreateInMemoryDbContext())
             {
                 //Arrange 
                 var merchant = Merchant;
@@ -152,7 +152,7 @@ namespace Tests.Repositories
         [Fact]
         public async Task ShouldReturnNull_WithInvalidUserName()
         {
-            using (var context = TestsHelper.CreateInMemoryDbContext())
+            using (var context = TestHelper.CreateInMemoryDbContext())
             {
                 //Arrange
                 var merchant = Merchant;
@@ -170,7 +170,7 @@ namespace Tests.Repositories
         [Fact]
         public async Task ShouldReturnNull_WithInvalidToken()
         {
-            using (var context = TestsHelper.CreateInMemoryDbContext())
+            using (var context = TestHelper.CreateInMemoryDbContext())
             {
                 //Arrange 
                 var merchant = Merchant;
