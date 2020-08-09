@@ -10,10 +10,10 @@ namespace Domain.Repositories
 
     public interface IRepositoryBase<TEntity> : IDisposable where TEntity : class
     {
-        Task Add(TEntity obj);
+        Task<TEntity> Add(TEntity obj);
         Task<TEntity> GetById(int? id);
         Task<IEnumerable<TEntity>> GetAll();
-        Task Update(TEntity obj);
+        Task<TEntity> Update(TEntity obj);
         Task Remove(TEntity obj);
     }
     public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : class
@@ -23,10 +23,11 @@ namespace Domain.Repositories
         public RepositoryBase(Database context) =>
             db = context;
 
-        public virtual async Task Add(TEntity obj)
+        public virtual async Task<TEntity> Add(TEntity obj)
         {
             db.Add(obj);
             await db.SaveChangesAsync();
+            return obj;
         }
 
         public virtual async Task<IEnumerable<TEntity>> GetAll() =>
@@ -41,10 +42,12 @@ namespace Domain.Repositories
             await db.SaveChangesAsync();
         }
 
-        public virtual async Task Update(TEntity obj)
+        public virtual async Task<TEntity> Update(TEntity obj)
         {
             db.Entry(obj).State = EntityState.Modified;
             await db.SaveChangesAsync();
+
+            return obj;
         }
 
         public void Dispose() =>

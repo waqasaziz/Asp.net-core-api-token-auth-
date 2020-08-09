@@ -124,7 +124,7 @@ namespace Tests.Services
 
             var merchantRepositoryMock = new Mock<IMerchantRepository>();
             merchantRepositoryMock.Setup(x => x.FindByToken(It.IsAny<string>())).Returns(Task.FromResult(merchant));
-            merchantRepositoryMock.Setup(x => x.Update(It.IsAny<Merchant>())).Returns(Task.CompletedTask);
+            merchantRepositoryMock.Setup(x => x.Update(It.IsAny<Merchant>())).Returns((Merchant m) => Task.FromResult(m));
 
 
             var authService = new AuthService(tokenProviderMock.Object, hashingProviderMock, merchantRepositoryMock.Object);
@@ -158,7 +158,7 @@ namespace Tests.Services
 
             var merchantRepositoryMock = new Mock<IMerchantRepository>();
             merchantRepositoryMock.Setup(x => x.FindByToken(It.IsAny<string>())).Returns(Task.FromResult(merchant));
-            merchantRepositoryMock.Setup(x => x.Update(It.IsAny<Merchant>())).Returns(Task.CompletedTask);
+            merchantRepositoryMock.Setup(x => x.Update(It.IsAny<Merchant>())).Returns((Merchant m) => Task.FromResult(m));
 
 
             var authService = new AuthService(tokenProviderMock.Object, hashingProviderMock, merchantRepositoryMock.Object);
@@ -212,7 +212,7 @@ namespace Tests.Services
 
             var merchantRepositoryMock = new Mock<IMerchantRepository>();
             merchantRepositoryMock.Setup(x => x.FindByToken(It.IsAny<string>())).Returns(Task.FromResult(merchant));
-            merchantRepositoryMock.Setup(x => x.Update(It.IsAny<Merchant>())).Returns(Task.CompletedTask);
+            merchantRepositoryMock.Setup(x => x.Update(It.IsAny<Merchant>())).Returns((Merchant m) => Task.FromResult(m));
 
             var authService = new AuthService(tokenProviderMock, hashingProviderMock, merchantRepositoryMock.Object);
 
