@@ -17,8 +17,6 @@ namespace Tests.Repositories
 
     public class TestMerchantRepository
     {
-
-       
         [Fact]
         public async Task Can_Save_Refresh_Token()
         {
