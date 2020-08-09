@@ -1,68 +1,38 @@
 ﻿using Domain.Data;
-using Domain.Entities;
 using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
 namespace Tests.Repositories
 {
-
-    public class TestMerchantRepository
+    public class TestBaseRepository
     {
-
-       
         [Fact]
-        public async Task Can_Save_Refresh_Token()
+        public async Task Can_Save()
         {
+            //Arrange 
+            var merchant = TestHelper.Merchant;
+
             using (var context = TestHelper.CreateInMemoryDbContext())
             {
-                //Arrange 
-                var merchant = TestHelper.Merchant;
-                merchant.RefreshTokens.Add(TestHelper.RefreshToken);
-                
                 //Act
                 var repository = CreateMerchantRepository(context);
                 await repository.Add(merchant);
-                var result = await repository.GetById(merchant.Id);
-
 
                 //Assert
-                Assert.Single(result.RefreshTokens);
+                Assert.Single(context.Merchants);
             }
         }
 
         [Fact]
-        public async Task Can_Find_By_Token()
+        public async Task Can_Find_By_Id()
         {
-            using (var context = TestHelper.CreateInMemoryDbContext())
-            {
-                //Arrange 
-                var merchant = TestHelper.Merchant;
-                var refreshToken = TestHelper.RefreshToken;
-                merchant.RefreshTokens.Add(refreshToken);
-
-                //Act
-                var repository = CreateMerchantRepository(context);
-                await repository.Add(merchant);
-                var result = await repository.FindByToken(refreshToken.Token);
-
-                //Assert
-                Assert.Equal(result, merchant);
-            }
-        }
-
-        [Fact]
-        public async Task ShouldReturnNull_WithInvalidUserName()
-        {
-            var invalidUserName = "ABC";
             using (var context = TestHelper.CreateInMemoryDbContext())
             {
                 //Arrange
@@ -71,36 +41,71 @@ namespace Tests.Repositories
                 await repository.Add(merchant);
 
                 //Act
-                var result = await repository.FindByUserName(invalidUserName);
+                var result = await repository.GetById(merchant.Id);
 
                 //Assert
-                Assert.Null(result);
+                Assert.NotNull(result);
             }
         }
 
         [Fact]
-        public async Task ShouldReturnNull_WithInvalidToken()
+        public async Task Can_Find_By_UserName()
         {
-            var invalidUserName = "ABC";
-
             using (var context = TestHelper.CreateInMemoryDbContext())
             {
-                //Arrange 
+                //Arrange
                 var merchant = TestHelper.Merchant;
-                merchant.RefreshTokens.Add(TestHelper.RefreshToken);
-
-                //Act
                 var repository = CreateMerchantRepository(context);
                 await repository.Add(merchant);
-                var result = await repository.FindByToken(invalidUserName);
+
+                //Act
+                var result = await repository.FindByUserName(merchant.Username);
 
                 //Assert
-                Assert.Null(result);
+                Assert.Equal(result, merchant);
+            }
+        }
+
+        [Fact]
+        public async Task Can_Update()
+        {
+            var newMerchantName = "Ebay.co.uk";
+            using (var context = TestHelper.CreateInMemoryDbContext())
+            {
+                //Arrange
+                var repository = CreateMerchantRepository(context);
+                await repository.Add(TestHelper.Merchant);
+                var merchant = await repository.GetById(TestHelper.Merchant.Id);
+
+                //Act
+                merchant.Name = newMerchantName;
+                await repository.Update(merchant);
+
+                //Assert
+                Assert.Equal(context.Merchants.First().Name, newMerchantName);
+            }
+        }
+
+        [Fact]
+        public async Task Can_Delete()
+        {
+            using (var context = TestHelper.CreateInMemoryDbContext())
+            {
+                //Arrange
+                var repository = CreateMerchantRepository(context);
+                await repository.Add(TestHelper.Merchant);
+                var merchant = await repository.GetById(TestHelper.Merchant.Id);
+
+                //Act
+                await repository.Remove(merchant);
+
+                //Assert
+                Assert.Empty(context.Merchants);
             }
         }
 
         private IMerchantRepository CreateMerchantRepository(Database context) => new MerchantRepository(context);
 
-    }
 
+    }
 }

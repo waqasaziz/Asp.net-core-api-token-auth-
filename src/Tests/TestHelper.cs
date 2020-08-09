@@ -16,7 +16,6 @@ namespace Tests
     internal static class TestHelper
     {
         internal const string TokenSecret = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod";
-      
 
         internal static Database CreateInMemoryDbContext()
         {
@@ -41,7 +40,7 @@ namespace Tests
         => new RefreshToken
         {
             Token = "XYZ",
-            CreatedOn = DateTime.UtcNow,
+            CreatedOn = DateTime.Now,
             CreatedByIP = "LocalHost"
         };
 
