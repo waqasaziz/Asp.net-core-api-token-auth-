@@ -27,10 +27,6 @@ namespace Domain.Entities
                 .IsRequired()
                 .HasMaxLength(ModelConstants.Card.ExpiryDateMaxLength);
 
-            builder.Property(x => x.SecurityCode)
-                .IsRequired()
-                .HasMaxLength(ModelConstants.Card.SecurityCodeMaxLength);
-
             builder.Property(x => x.Amount)
                 .IsRequired();
 

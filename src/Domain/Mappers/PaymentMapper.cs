@@ -9,17 +9,17 @@ namespace Domain.Mappers
 {
     using Models;
     using Entities;
+    using Domain.Helpers;
 
     internal static class PaymentMapper
     {
-        internal static Payment MapPayment(BankGatewayResponse response, Merchant merchant)
+        internal static Payment MapPayment(BankGatewayResponse response, Merchant merchant, IEncryptionProvider encryptionProvider)
         {
             return new Payment
             {
-                CardNumber = response.CardNumber,
-                NameOnCard = response.NameOnCard,
-                ExpiryDate = response.ExpiryDate,
-                SecurityCode = response.SecurityCode,
+                CardNumber = encryptionProvider.Encrypt(response.CardNumber),
+                NameOnCard = encryptionProvider.Encrypt(response.NameOnCard),
+                ExpiryDate = encryptionProvider.Encrypt(response.ExpiryDate),
                 Amount = response.Amount,
                 CreatedOn = DateTime.UtcNow,
                 MerchantId = merchant.Id,

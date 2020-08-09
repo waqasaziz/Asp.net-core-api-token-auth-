@@ -35,7 +35,10 @@ namespace Tests.Services
             bankGatewayMock.Setup(x => x.SubmitPayment(It.IsAny<BankGatewayRequest>())).Returns(Task.FromResult(bankResposne));
 
             var logger = Mock.Of<ILogger<PaymentService>>();
-            var paymentService = new PaymentService(logger, paymentRepositoryMock.Object, bankGatewayMock.Object);
+            var encryptionProvider = Mock.Of<IEncryptionProvider>();
+
+
+            var paymentService = new PaymentService(logger, paymentRepositoryMock.Object, bankGatewayMock.Object, encryptionProvider);
             var paymentRequest = Mock.Of<PaymentRequest>();
             var merchant = Mock.Of<Merchant>();
 
@@ -63,9 +66,10 @@ namespace Tests.Services
             bankGatewayMock.Setup(x => x.SubmitPayment(It.IsAny<BankGatewayRequest>())).Returns(Task.FromResult(bankResposne));
 
             var logger = Mock.Of<ILogger<PaymentService>>();
+            var encryptionProvider = Mock.Of<IEncryptionProvider>();
 
 
-            var paymentService = new PaymentService(logger, paymentRepositoryMock.Object, bankGatewayMock.Object);
+            var paymentService = new PaymentService(logger, paymentRepositoryMock.Object, bankGatewayMock.Object, encryptionProvider);
             var paymentRequest = Mock.Of<PaymentRequest>();
             var merchant = Mock.Of<Merchant>();
 
