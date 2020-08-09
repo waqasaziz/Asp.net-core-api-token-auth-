@@ -41,7 +41,7 @@ namespace Tests
         => new RefreshToken
         {
             Token = "XYZ",
-            CreatedOn = DateTime.Now,
+            CreatedOn = DateTime.UtcNow,
             CreatedByIP = "LocalHost"
         };
 

@@ -27,6 +27,8 @@ namespace WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<HashingOptions>(Configuration.GetSection(HashingOptions.Hashing));
+            services.Configure<TokenOptions>(Configuration.GetSection(TokenOptions.Token));
+
             services.AddSingleton<IHashingProvider, HashingProvider>();
 
             services.AddControllers();

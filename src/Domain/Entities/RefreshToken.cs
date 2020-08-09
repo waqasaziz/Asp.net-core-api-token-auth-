@@ -16,5 +16,23 @@ namespace Domain.Entities
         public string ReplacedByToken { get; set; }
         public bool IsActive => RevokedOn == null && !IsExpired;
         public bool IsExpired => DateTime.UtcNow >= ExpiresOn;
+
+        internal void SetAsRevoked(string ipAddress, string newToken = null)
+        {
+            RevokedOn = DateTime.UtcNow;
+            RevokedByIP = ipAddress;
+            ReplacedByToken = newToken;
+        }
+
+        internal static RefreshToken Instantiate(string token, string ipAddress)
+        {
+            return new RefreshToken
+            {
+                Token = token,
+                ExpiresOn = DateTime.UtcNow.AddDays(7),
+                CreatedOn = DateTime.UtcNow,
+                CreatedByIP = ipAddress
+            };
+        }
     }
 }
