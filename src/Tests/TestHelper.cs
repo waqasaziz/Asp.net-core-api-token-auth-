@@ -35,6 +35,16 @@ namespace Tests
             PasswordSalt = "NZsP6NnmfBuYeJrrAKNuVQ==",
             PasswordHash = "/OOoOer10+tGwTRDTrQSoeCxVTFr6dtYly7d0cPxIak="
         };
+        internal static Payment Payment
+        => new Payment
+        {
+            Id = 1,
+            CardNumber = "11111111111111111",
+            NameOnCard = "Mr. Genuis",
+            ExpiryDate = "01/01",
+            SecurityCode = "000",
+            Amount = 1.00m,
+        };
 
         internal static RefreshToken RefreshToken
         => new RefreshToken

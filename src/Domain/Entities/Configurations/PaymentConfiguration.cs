@@ -32,8 +32,7 @@ namespace Domain.Entities
                 .HasMaxLength(ModelConstants.Card.SecurityCodeMaxLength);
 
             builder.Property(x => x.Amount)
-                .IsRequired()
-                .HasMaxLength(ModelConstants.Merchant.PasswordMaxLength);
+                .IsRequired();
 
             builder.HasOne(x => x.Merchant)
                 .WithMany(x => x.Payments);
