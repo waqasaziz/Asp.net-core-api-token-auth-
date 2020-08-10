@@ -22,12 +22,6 @@ namespace WebAPI.Controllers
             _authService = authService;
         }
 
-        [AllowAnonymous]
-        [HttpGet("test")]
-        public IActionResult Test()
-        {
-            return Ok("Success!");
-        }
 
         [AllowAnonymous]
         [HttpPost("authenticate")]
