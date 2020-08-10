@@ -33,4 +33,11 @@ Entity Frameword Core 3.1
   - Asymmetric RSA encryption rather than symmetric AES encryption
   - PKDF2 hashing with HMACSHA256 to hash passwords with 10,000 iterations
   
+  
+  ### Test Credentials
+  	UserName: Test
+	Password: Test
+	
+### Fake Card Number
+  	Card: 1111111111111111
  
