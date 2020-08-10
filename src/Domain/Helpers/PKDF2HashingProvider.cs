@@ -15,11 +15,11 @@ namespace Domain.Helpers
         bool Validate(string plainText, string salt, string hash);
     }
 
-    public class HashingProvider : IHashingProvider
+    public class PKDF2HashingProvider : IHashingProvider
     {
         private readonly HashingOptions _options;
 
-        public HashingProvider(IOptions<HashingOptions> options)
+        public PKDF2HashingProvider(IOptions<HashingOptions> options)
         {
             _options = options?.Value ?? throw new ArgumentNullException(nameof(options));
         }

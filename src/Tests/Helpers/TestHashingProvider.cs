@@ -61,6 +61,6 @@ namespace Tests.Helpers
             Assert.NotEqual(hash1, hash2);
         }
 
-        private IHashingProvider CreateProvider() => new HashingProvider(Options.Create(new HashingOptions()));
+        private IHashingProvider CreateProvider() => new PKDF2HashingProvider(Options.Create(new HashingOptions()));
     }
 }

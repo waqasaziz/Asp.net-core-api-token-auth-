@@ -11,6 +11,8 @@ namespace Domain.Helpers
     using Helpers;
     using Entities;
     using System.Runtime.InteropServices.ComTypes;
+    using System.Linq;
+    using System.Collections.Generic;
 
     public interface ISecurityTokenProvider
     {
@@ -18,6 +20,8 @@ namespace Domain.Helpers
         string GenerateRefreshToken(string ipAddress);
 
         TokenValidationParameters CreateTokenValidationParameters();
+
+        int ValidateTokenAndExtactIdentity(string token);
 
     }
     public class SecurityTokenProvider : ISecurityTokenProvider
@@ -63,5 +67,15 @@ namespace Domain.Helpers
                 ValidateAudience = false,
                 ClockSkew = TimeSpan.Zero
             };
+
+        public int ValidateTokenAndExtactIdentity(string token)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            tokenHandler.ValidateToken(token, CreateTokenValidationParameters(), out SecurityToken validatedToken);
+            var jwtToken = (JwtSecurityToken)validatedToken;
+            var idClaim = jwtToken.Claims.First(x => x.Type == "unique_name");
+            return int.Parse(idClaim.Value);
+        }
+
     }
 }

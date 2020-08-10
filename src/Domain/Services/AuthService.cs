@@ -80,9 +80,7 @@ namespace Domain.Services
 
             await _merchantRepository.Update(merchant);
 
-            return new AuthenticateResponse(merchant,
-                _tokenProvider.GenerateJwtToken(merchant.Id.ToString()),
-                token);
+            return new AuthenticateResponse(_tokenProvider.GenerateJwtToken(merchant.Id.ToString()), token);
         }
 
     }

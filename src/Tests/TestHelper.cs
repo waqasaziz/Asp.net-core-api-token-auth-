@@ -42,7 +42,6 @@ namespace Tests
             CardNumber = "11111111111111111",
             NameOnCard = "Mr. Genuis",
             ExpiryDate = "01/01",
-            SecurityCode = "000",
             Amount = 1.00m,
         };
 
@@ -70,7 +69,7 @@ namespace Tests
             => new SecurityTokenProvider(Options.Create(new TokenOptions() { Secret = TokenSecret }));
 
         internal static IHashingProvider CreateHasingProvider()
-            => new HashingProvider(Options.Create(new HashingOptions()));
+            => new PKDF2HashingProvider(Options.Create(new HashingOptions()));
 
         internal static IAuthService CreateAuthService()
             => new AuthService(CreateSecurityTokenProvider(),

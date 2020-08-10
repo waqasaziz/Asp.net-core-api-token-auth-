@@ -12,7 +12,11 @@ namespace Domain.Services
     using Models;
     using Repositories;
 
-    public class PaymentService
+    public interface IPaymentService
+    {
+        Task<PaymentResponse> CreatePayment(PaymentRequest request, Merchant merchant);
+    }
+    public class PaymentService : IPaymentService
     {
         private readonly ILogger<PaymentService> _log;
         private readonly IPaymentRepository _paymentRepository;
@@ -41,7 +45,7 @@ namespace Domain.Services
 
             if (bankResponse.Status == BankGatewayPaymentStatus.Successfull)
             {
-                var payment = await _paymentRepository.Add(PaymentMapper.MapPayment(bankResponse, merchant,_encryptionProvier));
+                var payment = await _paymentRepository.Add(PaymentMapper.MapPayment(bankResponse, merchant, _encryptionProvier));
 
                 result.PaymentId = payment.Id;
             }
