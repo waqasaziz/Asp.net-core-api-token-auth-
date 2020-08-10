@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Domain.Entities;
+using Microsoft.OpenApi.Models;
 
 namespace WebAPI.Helpers
 {
@@ -21,7 +22,7 @@ namespace WebAPI.Helpers
     {
         public const string MerchantContextKey = "Merchant";
 
-        public static Merchant GetMerchant(this HttpContext context) 
+        public static Merchant GetMerchant(this HttpContext context)
         {
             if (context == null) return null;
 
@@ -84,5 +85,38 @@ namespace WebAPI.Helpers
                 };
             });
         }
+
+        public static void AddSwagger(this IServiceCollection services)
+        {
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Payment Gateway",
+                    Version = "v1"
+                });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please insert JWT with Bearer into field",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                   {
+                     new OpenApiSecurityScheme
+                     {
+                       Reference = new OpenApiReference
+                       {
+                         Type = ReferenceType.SecurityScheme,
+                         Id = "Bearer"
+                       }
+                      },
+                      new string[] { }
+                    }
+                });
+            });
+        }
+
     }
 }

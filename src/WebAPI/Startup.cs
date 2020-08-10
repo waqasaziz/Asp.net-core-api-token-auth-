@@ -23,6 +23,7 @@ using Domain.Entities;
 using System.Security.Policy;
 using WebAPI.Helpers;
 using WebApi.Helpers;
+using Microsoft.OpenApi.Models;
 
 namespace WebAPI
 {
@@ -56,11 +57,11 @@ namespace WebAPI
                 opt.ApiVersionReader = new HeaderApiVersionReader("X-Version");
             });
 
+            services.AddSwagger();
+
             services.AddControllers();
 
         }
-
-
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Database context, IHashingProvider hashingProvider)
@@ -71,6 +72,11 @@ namespace WebAPI
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Payment Gateway V1");
+            });
             app.UseHttpsRedirection();
 
             app.UseRouting();
