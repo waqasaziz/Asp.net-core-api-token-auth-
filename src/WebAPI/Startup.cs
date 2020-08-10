@@ -78,7 +78,7 @@ namespace WebAPI
             app.UseAuthentication();
             app.UseAuthorization();
 
-            //app.UseMiddleware<JwtMiddleware>();
+            app.UseMiddleware<JwtMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

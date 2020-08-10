@@ -16,6 +16,7 @@ namespace Domain.Helpers
 
     public interface ISecurityTokenProvider
     {
+        string ClaimType { get;  }
         string GenerateJwtToken(string claimId);
         string GenerateRefreshToken(string ipAddress);
 
@@ -26,6 +27,7 @@ namespace Domain.Helpers
     }
     public class SecurityTokenProvider : ISecurityTokenProvider
     {
+        public string ClaimType { get; } = "MerchantID";
         private readonly TokenOptions _options;
 
         public SecurityTokenProvider(IOptions<TokenOptions> options) => _options = options.Value;
@@ -39,7 +41,7 @@ namespace Domain.Helpers
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, claimId)
+                    new Claim(ClaimType, claimId)
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(_options.JWTExpiryMinutes),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -73,7 +75,7 @@ namespace Domain.Helpers
             var tokenHandler = new JwtSecurityTokenHandler();
             tokenHandler.ValidateToken(token, CreateTokenValidationParameters(), out SecurityToken validatedToken);
             var jwtToken = (JwtSecurityToken)validatedToken;
-            var idClaim = jwtToken.Claims.First(x => x.Type == "unique_name");
+            var idClaim = jwtToken.Claims.First(x => x.Type == ClaimType);
             return int.Parse(idClaim.Value);
         }
 

@@ -13,11 +13,16 @@ using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Domain.Entities;
 
 namespace WebAPI.Helpers
 {
     public static class Extensions
     {
+        public const string MerchantContextKey = "Merchant";
+
+        public static Merchant GetMerchant(this HttpContext context) => (Merchant)context.Items[MerchantContextKey];
+
         public static string GetIPAddress(this HttpContext context)
         {
             if (context == null) return string.Empty;

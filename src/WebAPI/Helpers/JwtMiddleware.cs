@@ -42,7 +42,7 @@ namespace WebApi.Helpers
                 var merchantId = securityTokenProvider.ValidateTokenAndExtactIdentity(token);
 
                 // attach user to context on successful jwt validation
-                context.Items["User"] = await merchantRepository.GetById(merchantId);
+                context.Items[Extensions.MerchantContextKey] = await merchantRepository.GetById(merchantId);
             }
             catch
             {

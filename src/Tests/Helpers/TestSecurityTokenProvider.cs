@@ -27,7 +27,7 @@ namespace Tests.Helpers
                 .ValidateToken(token, validationParameters, out _);
 
             // Assert  
-            Assert.Equal(claimId, principal.FindFirst(ClaimTypes.Name).Value);
+            Assert.Equal(claimId, principal.FindFirst(provider.ClaimType).Value);
         }
 
     }
