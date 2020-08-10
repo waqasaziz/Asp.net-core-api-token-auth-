@@ -21,7 +21,12 @@ namespace WebAPI.Helpers
     {
         public const string MerchantContextKey = "Merchant";
 
-        public static Merchant GetMerchant(this HttpContext context) => (Merchant)context.Items[MerchantContextKey];
+        public static Merchant GetMerchant(this HttpContext context) 
+        {
+            if (context == null) return null;
+
+            return (Merchant)context.Items[MerchantContextKey];
+        }
 
         public static string GetIPAddress(this HttpContext context)
         {

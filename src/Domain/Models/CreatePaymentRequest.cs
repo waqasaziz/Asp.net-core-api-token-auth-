@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Domain.Models
 {
-    public class PaymentRequest
+    public class CreatePaymentRequest
     {
         [Required]
         public string CardNumber { get; set; }

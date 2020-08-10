@@ -5,9 +5,11 @@ using System.Text;
 
 namespace Domain.Models
 {
-    public class PaymentResponse
+    public class CreatePaymentResponse
     {
         public bool IsSuccessfull { get; set; }
         public int? PaymentId { get; set; }
+        public string ErrorMessage { get; set; }
+
     }
 }

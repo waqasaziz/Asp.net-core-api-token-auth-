@@ -39,7 +39,7 @@ namespace Tests.Services
 
 
             var paymentService = new PaymentService(logger, paymentRepositoryMock.Object, bankGatewayMock.Object, encryptionProvider);
-            var paymentRequest = Mock.Of<PaymentRequest>();
+            var paymentRequest = Mock.Of<CreatePaymentRequest>();
             var merchant = Mock.Of<Merchant>();
 
             //Act
@@ -47,6 +47,8 @@ namespace Tests.Services
 
             //Assert
             bankGatewayMock.Verify(x => x.SubmitPayment(It.IsAny<BankGatewayRequest>()), Times.Once());
+            paymentRepositoryMock.Verify(x => x.Add(It.IsAny<Payment>()), Times.Once());
+
             Assert.True(expected.IsSuccessfull);
             Assert.Equal(expected.PaymentId, payment.Id);
         }
@@ -70,13 +72,16 @@ namespace Tests.Services
 
 
             var paymentService = new PaymentService(logger, paymentRepositoryMock.Object, bankGatewayMock.Object, encryptionProvider);
-            var paymentRequest = Mock.Of<PaymentRequest>();
+            var paymentRequest = Mock.Of<CreatePaymentRequest>();
             var merchant = Mock.Of<Merchant>();
 
             //Act
             var expected = await paymentService.CreatePayment(paymentRequest, merchant);
 
             //Assert
+            bankGatewayMock.Verify(x => x.SubmitPayment(It.IsAny<BankGatewayRequest>()), Times.Once());
+            paymentRepositoryMock.Verify(x => x.Add(It.IsAny<Payment>()), Times.Once());
+
             Assert.False(expected.IsSuccessfull);
             Assert.Null(expected.PaymentId);
         }
