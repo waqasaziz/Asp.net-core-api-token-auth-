@@ -20,16 +20,16 @@ Entity Frameword Core 3.1
 
 
 ## Things to Improve
-  Idempotency: at the moment payment post method is not idempotent. I would add a header key (e.g. Idempotency-Key) requirment for posting payments which would require a unique code
-  Viewmodel/data contracts annotation
-  A few more test cases to increase code coverage
-  At least a powerShell script to build project and run test cases.
+  - Idempotency: at the moment payment post method is not idempotent. I would add a header key (e.g. Idempotency-Key) requirment for posting payments which would require a unique code
+  - Viewmodel/data contracts annotation
+  - A few more test cases to increase code coverage
+  - At least a powerShell script to build project and run test cases.
   
 
 ## Notes
-  I would setup encryption keys and token secert to  be stored in AWS Secrets Manager on Production
-  Aquiring Bank implementation can be switched using IOC.
-  Asymmetric RSA encryption rather than symmetric AES encryption
-  PKDF2 hashing with HMACSHA256 to hash passwords with 10,000 iterations
+  - Encryption keys and token secert to be stored in AWS Secrets Manager on Production
+  - Aquiring Bank implementation can be switched using IOC.
+  - Asymmetric RSA encryption rather than symmetric AES encryption
+  - PKDF2 hashing with HMACSHA256 to hash passwords with 10,000 iterations
   
  
