@@ -8,17 +8,11 @@ namespace Domain.Services
 {
     using Models;
     using Entities;
-    using Data;
     using Helpers;
     using Repositories;
     using System.Linq;
 
-    public interface IAuthService
-    {
-        Task<AuthenticateResponse> Authenticate(AuthenticateRequest model, string ipAddress);
-        Task<AuthenticateResponse> RefreshToken(string token, string ipAddress);
-        Task<bool> RevokeToken(string token, string ipAddress);
-    }
+
     public class AuthService : IAuthService
     {
         private readonly ISecurityTokenProvider _tokenProvider;

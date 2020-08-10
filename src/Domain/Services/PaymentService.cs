@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using APiClient.BankGateway;
 using APiClient.BankGateway.DataContracts;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Domain.Services
 {
@@ -11,16 +13,7 @@ namespace Domain.Services
     using Mappers;
     using Models;
     using Repositories;
-    using System.Runtime.InteropServices.ComTypes;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Linq;
 
-    public interface IPaymentService
-    {
-        Task<CreatePaymentResponse> CreatePayment(CreatePaymentRequest request, Merchant merchant);
-        Task<IEnumerable<GetPaymentsResponse>> GetAll(Merchant merchant);
-    }
     public class PaymentService : IPaymentService
     {
         private readonly ILogger<PaymentService> _log;

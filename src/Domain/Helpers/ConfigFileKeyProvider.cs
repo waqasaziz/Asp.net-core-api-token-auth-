@@ -3,13 +3,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Domain.Helpers
 {
-    public interface IEncryptionKeyProvider
-    {
-        string PublicKey { get; }
 
-        string PrivateKey { get; }
-
-    }
 
     public class ConfigFileKeyProvider : IEncryptionKeyProvider
     {

@@ -5,12 +5,7 @@ using System.Text;
 
 namespace Domain.Helpers
 {
-    public interface IEncryptionProvider
-    {
-        string Decrypt(string cipherText);
 
-        string Encrypt(string text);
-    }
 
     /// <summary>
     /// RSA encryption and decryption using OpenSSL public key encryption / private key decryption

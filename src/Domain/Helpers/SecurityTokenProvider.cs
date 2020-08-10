@@ -14,17 +14,7 @@ namespace Domain.Helpers
     using System.Linq;
     using System.Collections.Generic;
 
-    public interface ISecurityTokenProvider
-    {
-        string ClaimType { get;  }
-        string GenerateJwtToken(string claimId);
-        string GenerateRefreshToken(string ipAddress);
 
-        TokenValidationParameters CreateTokenValidationParameters();
-
-        int ValidateTokenAndExtactIdentity(string token);
-
-    }
     public class SecurityTokenProvider : ISecurityTokenProvider
     {
         public string ClaimType { get; } = "MerchantID";

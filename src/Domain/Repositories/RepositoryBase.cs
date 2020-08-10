@@ -8,14 +8,6 @@ namespace Domain.Repositories
 {
     using Data;
 
-    public interface IRepositoryBase<TEntity> : IDisposable where TEntity : class
-    {
-        Task<TEntity> Add(TEntity obj);
-        Task<TEntity> GetById(int? id);
-        Task<IEnumerable<TEntity>> GetAll();
-        Task<TEntity> Update(TEntity obj);
-        Task Remove(TEntity obj);
-    }
     public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : class
     {
         protected readonly Database db;

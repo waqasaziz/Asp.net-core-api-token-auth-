@@ -7,11 +7,7 @@ namespace Domain.Repositories
     using Data;
     using Entities;
 
-    public interface IMerchantRepository : IRepositoryBase<Merchant>
-    {
-        Task<Merchant> FindByUserName(string userName);
-        Task<Merchant> FindByToken(string token);
-    }
+
     public class MerchantRepository : RepositoryBase<Merchant>, IMerchantRepository
     {
         public MerchantRepository(Database context) : base(context) { }
