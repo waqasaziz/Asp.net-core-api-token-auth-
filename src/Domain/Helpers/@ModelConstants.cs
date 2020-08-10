@@ -13,10 +13,9 @@ namespace Domain.Helpers
 
         public static class Card
         {
-            public const int NumberMaxLength = 16;
-            public const int NameMaxLength = 50;
-            public const int ExpiryDateMaxLength = 5;
-            public const int SecurityCodeMaxLength = 3;
+            public const int NumberMaxLength = 344;
+            public const int NameMaxLength = 344;
+            public const int ExpiryDateMaxLength = 344;
         }
 
         public static class Amount
