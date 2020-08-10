@@ -20,6 +20,7 @@ Entity Frameword Core 3.1
 
 
 ## Things to Improve
+  - HATEOAS
   - Idempotency: at the moment payment post method is not idempotent. I would add a header key (e.g. Idempotency-Key) requirment for posting payments which would require a unique code
   - Viewmodel/data contracts annotation
   - A few more test cases to increase code coverage
