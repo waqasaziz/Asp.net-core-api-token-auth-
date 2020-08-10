@@ -12,6 +12,8 @@ namespace APiClient.BankGateway
     }
     public class BankGatewayMock : IBankGateway
     {
+        private const string TestCardNumber = "1111111111111111";
+
         public Task<BankGatewayResponse> SubmitPayment(BankGatewayRequest request)
         {
             var result = new BankGatewayResponse
@@ -25,7 +27,7 @@ namespace APiClient.BankGateway
                 Status = BankGatewayPaymentStatus.Failed
             };
 
-            if (request.CardNumber == "1111")
+            if (request.CardNumber == TestCardNumber)
                 result.Status = BankGatewayPaymentStatus.Successfull;
 
             return Task.FromResult(result);
