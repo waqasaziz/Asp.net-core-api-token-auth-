@@ -1,4 +1,4 @@
-# Payment Gateway
+# Asp.Net core Token based authentication with moq test
 
 This project exposes a payment gateway, an API based application that allows a merchant to offer a way for their shoppers to pay for their product. It also implements JWT token based authentication with refresh token. 
 It uses InMemory Database for keeping things simple
